@@ -1,19 +1,18 @@
 <template>
   <div>
-    <translateGroup></translateGroup>
-    this is Enterprise page
+    <translateGroup />
   </div>
 </template>
 
 <script>
 import translateGroup from '@/components/translateGroup/index.vue'
 export default {
-  components:{
+  components: {
     translateGroup
   }
 }
 </script>
 
 <style lang="scss">
-  
+
 </style>

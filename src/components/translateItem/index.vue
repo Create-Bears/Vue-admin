@@ -1,70 +1,71 @@
 <template>
-  <div>
+  <div class="translate-wrapper">
     <div class="translate-box">
-      <label>{{data.label}}</label>
+      <label>{{ data.label }}</label>
       <div>
-        <Input
+        <el-input
           v-if="data.type === formTypes.input"
-          class="w200"
           v-model="value"
           :placeholder="`请输入${data.label}`"
           clearable
           @on-change="change"
         />
         <!-- Select -->
-        <Select
-          class="w200"
+        <el-select
           v-if="data.type === formTypes.select"
           v-model="value"
           :placeholder="`请选择${data.label}`"
           :filterable="data.filterable"
-          @on-change="change"
           clearable
+          @on-change="change"
         >
           <Option v-for="item in options" :key="item.key" :value="item.value" :label="item.label" />
-        </Select>
+        </el-select>
         <!-- BooleanSelect -->
-        <Select
-          class="w200"
+        <el-select
           v-if="data.type === formTypes.booleanSelect"
           v-model="value"
           :placeholder="`请选择${data.label}`"
-          @on-change="change"
           clearable
+          @on-change="change"
         >
-          <Option
+          <el-option
             v-for="item in data.options"
             :key="item.label"
             :value="item.value"
             :label="item.label"
           />
-        </Select>
+        </el-select>
         <!-- multiSelect -->
-        <Select
-          class="w200"
-          :style="data.style || {}"
+        <el-select
           v-if="data.type === formTypes.multiSelect"
           v-model="value"
+          :style="data.style || {}"
           :placeholder="`请选择${data.label}`"
           :filterable="data.filterable"
           multiple
           clearable
           @on-change="multiSelect"
         >
-          <Option v-for="item in options" :key="item.key" :value="item.value" :label="item.label" />
-        </Select>
+          <el-option
+            v-for="item in options"
+            :key="item.key"
+            :value="item.value"
+            :label="item.label"
+          />
+        </el-select>
         <!-- Range -->
         <div v-if="data.type === formTypes.range">
           <Input
-            class="w100"
             v-model="rangeValue.min"
+            style="width:94px;border: 1px solid #ccc;"
             :placeholder="data.minPlaceholder || '最小'"
             clearable
             @on-change="rangeChange"
           />-
           <Input
-            class="w100"
             v-model="rangeValue.max"
+            style="width:94px;border: 1px solid #ccc;"
             :placeholder="data.maxPlaceholder || '最大'"
             clearable
             @on-change="rangeChange"
@@ -74,18 +75,11 @@
         <div class="block">
           <el-date-picker
             v-if="data.type === formTypes.rangeDate"
-            v-model="rangeDateValue"
-            type="daterange"
-            placeholder="`请选择${data.label}`"
-          ></el-date-picker>
-        </div>
-        <div class="block">
-          <el-date-picker
-            v-if="data.type === formTypes.rangeDate"
             v-model="singleDateValue"
+            style="width:200px"
             type="date"
-            placeholder="`请选择${data.label}`"
-          ></el-date-picker>
+            :placeholder="`请选择${data.label}`"
+          />
         </div>
       </div>
     </div>
@@ -93,74 +87,122 @@
 </template>
 
 <script>
+// import {getInputData} from '@/api/enterprise.js'
 const FORM_TYPES = {
-  input: "input",
-  range: "range",
-  select: "select",
-  multiSelect: "multiSelect",
-  booleanSelect: "booleanSelect",
-  rangeDate: "rangeDate",
-  singleDate: "singleDate"
-};
+  input: 'input',
+  range: 'range',
+  select: 'select',
+  multiSelect: 'multiSelect',
+  booleanSelect: 'booleanSelect',
+  rangeDate: 'rangeDate',
+  singleDate: 'singleDate'
+}
 export default {
   props: {
     data: {
-      type: Object
+      type: Object,
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
     return {
       formTypes: FORM_TYPES,
-      value: null,
+      value: '',
       rangeValue: {
         min: null,
         max: null
       },
       rangeDateValue: [],
-      singleDateValue: null,
+      singleDateValue: '',
       optionsByAsync: []
-    };
+    }
   },
   methods: {
     emitChange(value) {
       const pl = {
         key: this.data.key,
         value: value
-      };
-      this.$emit("on-change", pl);
+      }
+      this.$emit('on-change', pl)
     },
     change() {
-      this.emitChange(this.value);
+      this.emitChange(this.value)
     },
     multiSelect() {
-      const value = this.value.join(",");
-      this.emitChange(value);
+      const value = this.value.join(',')
+      this.emitChange(value)
     },
     rangeChange() {
-      const value = {};
-      value[this.data.minKey] = this.rangeValue.min;
-      value[this.data.maxKey] = this.rangeValue.max;
-      this.emitChange(value);
+      const value = {}
+      value[this.data.minKey] = this.rangeValue.min
+      value[this.data.maxKey] = this.rangeValue.max
+      this.emitChange(value)
     },
     rangeDateChange() {
-      const value = {};
+      const value = {}
       value[this.data.minKey] = this.rangeDateValue[0]
         ? this.rangeDateValue[0].getTime()
-        : null;
+        : null
       value[this.data.maxKey] = this.rangeDateValue[1]
         ? this.rangeDateValue[1].getTime()
-        : null;
-      this.emitChange(value);
+        : null
+      this.emitChange(value)
     },
     singleDateChange(val) {
       const value = this.singleDateValue
         ? this.singleDateValue.getTime()
-        : null;
-      this.emitChange(value);
+        : null
+      this.emitChange(value)
     }
   }
-};
+  // mounted() {
+  //   // getInputData().then(res=>{
+  //   //   // console.log(res)
+  //   // })
+  // },
+}
 </script>
 
 <style lang="scss">
+.translate-wrapper {
+  display: inline-block;
+  width: 25%;
+  margin-top: 10px;
+  .translate-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    label {
+      font-size: 12px;
+      margin-bottom: 3px;
+      font-weight: normal;
+      width: 200px;
+      padding-right: 10px;
+    }
+    div {
+      font-size: 12px;
+      input {
+        width: 200px;
+        height: 32px;
+        border-radius: 5px;
+        outline: 0;
+        // border: 0;
+        // border: 1px solid #ccc;
+      }
+    }
+    div > select {
+      width: 200px;
+      height: 32px;
+      border-radius: 5px;
+      outline: 0;
+      border: 0;
+      border: 1px solid #ccc;
+    }
+  }
+}
 </style>
