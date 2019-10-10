@@ -1,32 +1,32 @@
 <template>
   <div>
     <translateGroup />
-    <!-- <translateGroup /> -->
-    <div style="position: relative;">
-      <i-table
-        :columns="columns"
-        :data="data"
-      />
-      <div
-        :style="{'background-image': 'url('+ watermarkbgUrl +')'}"
-        class="water-mark"
-      />
-      <Page
-        :total="100"
-        show-elevator
-        show-sizer
-        show-total
-        class="ban-trigger"
-      />
+    <div class="other-btn-group">
+      <div class="other-btn-left">
+        <el-button round @click="addUserDialog">+新增客户</el-button>
+        <el-button round>今日跟进</el-button>
+        <el-button round>我的邀请</el-button>
+      </div>
+      <div class="other-btn-right">
+        <el-button round>搜索</el-button>
+        <el-button round>重置</el-button>
+      </div>
     </div>
+    <div style="position: relative;clear:both">
+      <i-table :columns="columns" :data="data" />
+      <Page :total="100" show-elevator show-sizer show-total class="ban-trigger" />
+    </div>
+    <addUserDialog v-if="isAddShow" :is-add-show="isAddShow" @handCloseDialog="handClick" />
   </div>
 </template>
 
 <script>
 import translateGroup from '@/components/translateGroup/index.vue'
+import addUserDialog from '@/components/addUserDialog/index.vue'
 export default {
   components: {
-    translateGroup
+    translateGroup,
+    addUserDialog
     // translateGroup
   },
   data() {
@@ -41,22 +41,39 @@ export default {
           fixed: 'left',
           width: 100,
           render: (h, params) => {
-            return h('span', {
-              on: {
-                click: () => {
-                  window.open(`#/client-overview?id=${params.row.baseId}&from=invitelist`, '_blank')
+            return h(
+              'span',
+              {
+                on: {
+                  click: () => {
+                    window.open(
+                      `#/client-overview?id=${params.row.baseId}&from=invitelist`,
+                      '_blank'
+                    )
+                  }
+                },
+                style: {
+                  cursor: 'pointer'
                 }
               },
-              style: {
-                cursor: 'pointer'
-              }
-            }, params.row.name)
+              params.row.name
+            )
           }
         },
         { title: '所在机构', key: 'institution', width: 200 },
-        { title: '是否Alpha律所', key: 'isAlphaIns', width: 100, render: (h, params) => h('span', params.row.isAlphaIns ? '是' : '否') },
+        {
+          title: '是否Alpha律所',
+          key: 'isAlphaIns',
+          width: 100,
+          render: (h, params) => h('span', params.row.isAlphaIns ? '是' : '否')
+        },
         { title: '职务', key: 'position', width: 100 },
-        { title: '执业年限', key: 'lengthOfPractice', width: 100, sortable: 'custom' },
+        {
+          title: '执业年限',
+          key: 'lengthOfPractice',
+          width: 100,
+          sortable: 'custom'
+        },
         {
           title: '手机号',
           key: 'mobilePhone',
@@ -82,22 +99,39 @@ export default {
           title: '区域',
           width: 140,
           render: (h, params) => {
-            return h('span', `${params.row.province || ''} ${params.row.city || ''} ${params.row.area || ''}`)
+            return h(
+              'span',
+              `${params.row.province || ''} ${params.row.city || ''} ${params
+                .row.area || ''}`
+            )
           }
         },
-        { title: '邀请状态', key: 'partnerInviteStatus', align: 'center', minWidth: 140 },
-        { title: '邀请人', key: 'partnerInviter', align: 'center', minWidth: 73 },
+        {
+          title: '邀请状态',
+          key: 'partnerInviteStatus',
+          align: 'center',
+          minWidth: 140
+        },
+        {
+          title: '邀请人',
+          key: 'partnerInviter',
+          align: 'center',
+          minWidth: 73
+        },
         {
           title: '邀请记录',
           key: 'partnerInviteRecord',
           minWidth: 180,
           render: (h, params) => {
-            return h('p', {
-              style: {
-                maxHeight: '150px',
-                overflow: 'scroll'
-              }
-            }, this.getList(params.row.partnerInviteRecord).map(item => h('div', item)))
+            return h(
+              'p',
+              {
+                style: {
+                  maxHeight: '150px',
+                  overflow: 'scroll'
+                }
+              },
+            )
           }
         },
         {
@@ -170,9 +204,24 @@ export default {
           }
         },
         { title: '标签', key: 'tags', width: 100 },
-        { title: '邀请级别', key: 'partnerIntentLevel', align: 'center', minWidth: 73 },
-        { title: '决策点', key: 'decisionPoint', align: 'center', minWidth: 73 },
-        { title: '橙子手机', key: 'partnerOrangePhone', align: 'center', minWidth: 73 },
+        {
+          title: '邀请级别',
+          key: 'partnerIntentLevel',
+          align: 'center',
+          minWidth: 73
+        },
+        {
+          title: '决策点',
+          key: 'decisionPoint',
+          align: 'center',
+          minWidth: 73
+        },
+        {
+          title: '橙子手机',
+          key: 'partnerOrangePhone',
+          align: 'center',
+          minWidth: 73
+        },
         { title: 'Alpha用户数', key: 'row', align: 'center', minWidth: 100 },
         {
           title: '出生日期',
@@ -196,8 +245,18 @@ export default {
           minWidth: 160,
           align: 'center'
         },
-        { title: '参加人数', key: 'partnerJoinActivityPersonNum', align: 'center', minWidth: 70 },
-        { title: '所在群', key: 'partnerChatGroup', align: 'center', minWidth: 70 },
+        {
+          title: '参加人数',
+          key: 'partnerJoinActivityPersonNum',
+          align: 'center',
+          minWidth: 70
+        },
+        {
+          title: '所在群',
+          key: 'partnerChatGroup',
+          align: 'center',
+          minWidth: 70
+        },
         { title: '备注', key: 'partnerRemark', align: 'center', minWidth: 70 },
         {
           title: '操作',
@@ -286,11 +345,39 @@ export default {
           city: '南山区',
           zip: 100000
         }
-      ]
+      ],
+      isAddShow: false
+    }
+  },
+  methods: {
+    addUserDialog() {
+      this.isAddShow = true
+    },
+    handClick(flag) {
+      this.isAddShow = flag
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.other-btn-group{
+  margin: 5px 0;
+  height: 60px;
+  line-height: 60px;
+  .el-button{
+    font-size: 12px;
+  }
+  .other-btn-left{
+    float: left;
+    margin-left: 25px;
+  }
+  .other-btn-left>.el-button{
+    background-color: #f7f7f7;
+  }
+  .other-btn-right{
+    float: right;
+    margin-right: 25px;
+  }
+}
 </style>

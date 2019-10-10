@@ -99,7 +99,8 @@ export default {
           label: '上过的课程',
           key: 'coursesTakenId',
           default: null,
-          filterable: true
+          filterable: true,
+          options: BOOLEAN_SELECT_OPTIONS
           // fetchOptionFn: FETCH_OPTIONS_FNS.coursesTakenId
         },
         courseName: {
@@ -113,21 +114,24 @@ export default {
           label: '选择省',
           key: 'province',
           placeholder: '选择省',
-          default: null
+          default: null,
+          options: BOOLEAN_SELECT_OPTIONS
         },
         city: {
           type: FORM_TYPES.multiSelect,
           label: '选择市',
           key: 'city',
           placeholder: '选择市',
-          default: null
+          default: null,
+          options: BOOLEAN_SELECT_OPTIONS
         },
         area: {
           type: FORM_TYPES.multiSelect,
           label: '选择区县',
           key: 'area',
           placeholder: '选择区县',
-          default: null
+          default: null,
+          options: BOOLEAN_SELECT_OPTIONS
         },
         tags: {
           type: FORM_TYPES.multiSelect,
@@ -135,7 +139,8 @@ export default {
           key: 'tags',
           placeholder: '选择标签',
           default: null,
-          configskey: 'userTags'
+          configskey: 'userTags',
+          options: BOOLEAN_SELECT_OPTIONS
         },
         userTagsFlag: {
           type: FORM_TYPES.booleanSelect,
@@ -179,7 +184,8 @@ export default {
           label: '邀请级别',
           key: 'intentLevel',
           default: null,
-          configskey: 'intentLevel'
+          configskey: 'intentLevel',
+          options: BOOLEAN_SELECT_OPTIONS
           // fetchOptionFn: FETCH_OPTIONS_FNS.intentLevel
         },
         orangePhone: {
@@ -230,6 +236,7 @@ export default {
           placeholder: '活动类型',
           default: null,
           filterable: true,
+          options: BOOLEAN_SELECT_OPTIONS,
           configskey: 'activitySysType'
         },
         sign: {
@@ -244,7 +251,8 @@ export default {
           label: '参加时间',
           key: 'joinActivityId',
           placeholder: '参加时间',
-          default: null
+          default: null,
+          options: BOOLEAN_SELECT_OPTIONS
           // fetchOptionFn: FETCH_OPTIONS_FNS.joinActivityId
         },
         isOrNot: {
@@ -269,7 +277,8 @@ export default {
           key: 'activityId',
           placeholder: '产品名称',
           default: null,
-          filterable: true
+          filterable: true,
+          options: BOOLEAN_SELECT_OPTIONS
           // fetchOptionFn: FETCH_OPTIONS_FNS.activityId
         },
         lastLoginTime: {
@@ -284,7 +293,8 @@ export default {
           label: '跟进人',
           key: 'contactSellerId',
           default: null,
-          filterable: true
+          filterable: true,
+          options: BOOLEAN_SELECT_OPTIONS
           // fetchOptionFn: FETCH_OPTIONS_FNS.contactSellerId
         },
         inviterTime: {

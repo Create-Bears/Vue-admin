@@ -74,12 +74,19 @@ export const constantRoutes = [
     path: '/enterprise',
     component: Layout,
     redirect: '/enterprise',
+    meta: { title: 'MyEquityInviteList-total', icon: 'dashboard' },
     children: [
       {
         path: 'index',
         component: () => import('@/views/enterprise/index'),
         name: 'Enterprise',
         meta: { title: 'Enterprise', icon: 'dashboard' }
+      },
+      {
+        path: 'MyEquityInviteList',
+        component: () => import('@/views/MyEquityInviteList/index'),
+        name: 'MyEquityInviteList',
+        meta: { title: 'MyEquityInviteList', icon: 'dashboard' }
       }
     ]
   },
