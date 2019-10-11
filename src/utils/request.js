@@ -7,7 +7,8 @@ import { getToken } from '@/utils/auth'
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000, // request timeout
+  headers: { 'token': 'eyJhbGciOiJIUzI1NiJ9.eyJvZmZpY2VfaWQiOiI0ZDc5MmUzMTZhMDUxMWU2YWE3NjAwMTYzZTE2MmFkZCIsImRldmljZVR5cGUiOiJ3ZWIiLCJvZmZpY2VfbmFtZSI6ImlDb3VydCIsInVzZXJfdHlwZSI6IkEiLCJ1c2VyX2lkIjoiMDFDRUI0RTE2RDI0MTFFNkE1QzIwMDE2M0UwMDIwRDEiLCJsb2dpblR5cGUiOiIyIiwidXNlcl9uYW1lIjoi546L5YKoMSIsImlzcyI6ImlMYXcuY29tIiwiZXhwIjoxNTczMzQ5NTk3NDg5LCJpYXQiOjE1NzA3NTc1OTc0ODksIm9mZmljZVR5cGUiOiJpbnRlZ3JhdGlvbiJ9.bp9iCmrwHYgTjvSbPaEKqLanVMeyfSalB9cD7LSuRlE' }
 })
 
 // request interceptor
@@ -29,22 +30,32 @@ service.interceptors.request.use(
     return Promise.reject(error)
   }
 )
-
+// service.interceptors.response.use(
+//   response => {
+//     return response
+//   }
+// )
 // response interceptor
 service.interceptors.response.use(
   /**
+   * 如果您想要获取诸如头或状态之类的http信息
    * If you want to get http information such as headers or status
+   * 请返回response=>response
    * Please return  response => response
    */
 
   /**
+   * 通过自定义代码确定请求状态
    * Determine the request status by custom code
+   * 这里只是一个例子
    * Here is just an example
+   * 您还可以通过http状态代码判断状态
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    console.log(response)
     const res = response.data
-
+    // return res
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
       Message({

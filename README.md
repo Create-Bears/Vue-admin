@@ -215,3 +215,14 @@ Modern browsers and Internet Explorer 10+.
 [MIT](https://github.com/PanJiaChen/vue-element-admin/blob/master/LICENSE)
 
 Copyright (c) 2017-present PanJiaChen
+
+
+
+## 本地访问
+登陆： https://dev.alphalawyer.cn/#/login/password
+账号：  wangchu@icourt.cc     123456
+
+页面：pages/UserSystem/Client/EntrepreneursInviteList/invite
+
+点金用户系统进入页面
+http://localhost:8080/#/home?system=%E7%94%A8%E6%88%B7%E7%B3%BB%E7%BB%9F

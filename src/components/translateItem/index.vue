@@ -89,7 +89,7 @@
 </template>
 
 <script>
-// import {getInputData} from '@/api/enterprise.js'
+import { getInputData } from '@/api/enterprise.js'
 const FORM_TYPES = {
   input: 'input',
   range: 'range',
@@ -120,6 +120,11 @@ export default {
       singleDateValue: '',
       optionsByAsync: []
     }
+  },
+  mounted() {
+    getInputData().then(res => {
+      console.log(res)
+    })
   },
   methods: {
     emitChange(value) {
@@ -159,11 +164,6 @@ export default {
       this.emitChange(value)
     }
   }
-  // mounted() {
-  //   // getInputData().then(res=>{
-  //   //   // console.log(res)
-  //   // })
-  // },
 }
 </script>
 
