@@ -1,156 +1,188 @@
 <template>
   <div>
     <translateGroup />
-    <div class="tableData">
-      <i-table
-        :columns="columns"
-        :data="data"
-      />
-      <Page
-        :total="100"
-        show-elevator
-        show-sizer
-        show-total
-      />
-      <Modal
-        v-model="flag"
-        title="编辑律师信息"
-        footer-hide="false"
-        width="900px"
-      >
-        <Form
-          ref="formValidate"
-          :model="formValidate"
-          :rules="ruleValidate"
-          :label-width="80"
+    <div class="other-btn-group">
+      <div class="other-btn-left">
+        <el-button
+          round
+          @click="addUserDialog"
+        >+新增客户</el-button>
+        <el-button round>今日跟进</el-button>
+        <el-button round>我的邀请</el-button>
+      </div>
+      <div class="other-btn-right">
+        <el-button round>搜索</el-button>
+        <el-button round>重置</el-button>
+      </div>
+      <div class="tableData">
+        <i-table
+          :columns="columns"
+          :data="data"
+        />
+        <Page
+          :total="100"
+          show-elevator
+          show-sizer
+          show-total
+        />
+        <Modal
+          v-model="flag"
+          title="编辑律师信息"
+          footer-hide="false"
+          width="900px"
         >
-          <FormItem
-            label="姓名"
-            prop="name"
+          <Form
+            ref="formValidate"
+            :model="formValidate"
+            :rules="ruleValidate"
+            :label-width="80"
           >
-            <Input
-              v-model="formValidate.name"
-              placeholder="请输入你的姓名"
-            />
-          </FormItem>
-          <FormItem
-            label="所在机构"
-            prop="name"
-          >
-            <Input
-              v-model="formValidate.name"
-              placeholder="请输入你的所在机构"
-            />
-          </FormItem>
-          <FormItem
-            label="职务"
-            prop="city"
-          >
-            <Select
-              v-model="formValidate.city"
-              placeholder="请选择"
+            <FormItem
+              label="姓名"
+              prop="name"
             >
-              <Option value="beijing">New York</Option>
-              <Option value="shanghai">London</Option>
-              <Option value="shenzhen">Sydney</Option>
-            </Select>
-          </FormItem>
-          <FormItem
-            label="手机号"
-            prop="name"
-          >
-            <Input
-              v-model="formValidate.name"
-              placeholder="请输入你的手机号"
-            />
-          </FormItem>
-          <FormItem
-            label="性别"
-            prop="gender"
-          >
-            <RadioGroup v-model="formValidate.gender">
-              <Radio label="male">男</Radio>
-              <Radio label="female">女</Radio>
-            </RadioGroup>
-          </FormItem>
-          <FormItem
-            label="邀请状态"
-            prop="city"
-          >
-            <Select
-              v-model="formValidate.city"
-              placeholder="请选择"
+              <Input
+                v-model="formValidate.name"
+                placeholder="请输入你的姓名"
+              />
+            </FormItem>
+            <FormItem
+              label="所在机构"
+              prop="name"
             >
-              <Option value="beijing">New York</Option>
-              <Option value="shanghai">London</Option>
-              <Option value="shenzhen">Sydney</Option>
-            </Select>
-          </FormItem>
-          <FormItem label="计划跟进">
-            <Row>
-              <Col span="11" />
-              <FormItem prop="date">
-                <DatePicker
-                  v-model="formValidate.date"
-                  type="date"
-                  placeholder="计划跟进日期"
-                />
-              </FormItem>
-            </Row>
-          </FormItem>
-          <FormItem
-            label="参加时间"
-            prop="city"
-          >
-            <Select
-              v-model="formValidate.city"
-              placeholder="请选择"
+              <Input
+                v-model="formValidate.name"
+                placeholder="请输入你的所在机构"
+              />
+            </FormItem>
+            <FormItem
+              label="职务"
+              prop="city"
             >
-              <Option value="beijing">New York</Option>
-              <Option value="shanghai">London</Option>
-              <Option value="shenzhen">Sydney</Option>
-            </Select>
-          </FormItem>
-          <FormItem
-            label="律师是否报名"
-            prop="gender"
-          >
-            <RadioGroup v-model="formValidate.gender">
-              <Radio label="yes">是</Radio>
-              <Radio label="no">否</Radio>
-            </RadioGroup>
-          </FormItem>
-          <FormItem
-            label="邀请记录"
-            prop="gender"
-          >
-            <Button>邀请</Button>
-            <Input
-              v-model="formValidate.desc"
-              type="textarea"
-              :autosize="{minRows: 2,maxRows: 5}"
-              placeholder="Enter something..."
-            />
-          </FormItem>
-          <FormItem
-            label="备注"
-            prop="desc"
-          >
-            <Input
-              v-model="formValidate.desc"
-              type="textarea"
-              :autosize="{minRows: 2,maxRows: 5}"
-              placeholder="Enter something..."
-            />
-          </FormItem>
-          <FormItem>
-            <Button
-              type="primary"
-              @click="handleSubmit('formValidate')"
-            >保存</Button>
-          </FormItem>
-        </Form>
-      </Modal>
+              <Select
+                v-model="formValidate.city"
+                placeholder="请选择"
+              >
+                <Option value="beijing">New York</Option>
+                <Option value="shanghai">London</Option>
+                <Option value="shenzhen">Sydney</Option>
+              </Select>
+            </FormItem>
+            <FormItem
+              label="手机号"
+              prop="name"
+            >
+              <Input
+                v-model="formValidate.name"
+                placeholder="请输入你的手机号"
+              />
+            </FormItem>
+            <FormItem
+              label="性别"
+              prop="gender"
+            >
+              <RadioGroup v-model="formValidate.gender">
+                <Radio label="male">男</Radio>
+                <Radio label="female">女</Radio>
+              </RadioGroup>
+            </FormItem>
+            <FormItem
+              label="邀请状态"
+              prop="city"
+            >
+              <Select
+                v-model="formValidate.city"
+                placeholder="请选择"
+              >
+                <Option value="beijing">New York</Option>
+                <Option value="shanghai">London</Option>
+                <Option value="shenzhen">Sydney</Option>
+              </Select>
+            </FormItem>
+            <FormItem label="计划跟进">
+              <Row>
+                <Col span="11" />
+                <FormItem prop="date">
+                  <DatePicker
+                    v-model="formValidate.date"
+                    type="date"
+                    placeholder="计划跟进日期"
+                  />
+                </FormItem>
+              </Row>
+            </FormItem>
+            <FormItem
+              label="参加时间"
+              prop="city"
+            >
+              <Select
+                v-model="formValidate.city"
+                placeholder="请选择"
+              >
+                <Option value="beijing">New York</Option>
+                <Option value="shanghai">London</Option>
+                <Option value="shenzhen">Sydney</Option>
+              </Select>
+            </FormItem>
+            <FormItem
+              label="律师是否报名"
+              prop="gender"
+            >
+              <RadioGroup v-model="formValidate.gender">
+                <Radio label="yes">是</Radio>
+                <Radio label="no">否</Radio>
+              </RadioGroup>
+            </FormItem>
+            <FormItem
+              label="邀请记录"
+              prop="gender"
+            >
+              <Button>邀请</Button>
+              <Input
+                v-model="formValidate.desc"
+                type="textarea"
+                :autosize="{minRows: 2,maxRows: 5}"
+                placeholder="Enter something..."
+              />
+            </FormItem>
+            <FormItem
+              label="备注"
+              prop="desc"
+            >
+              <Input
+                v-model="formValidate.desc"
+                type="textarea"
+                :autosize="{minRows: 2,maxRows: 5}"
+                placeholder="Enter something..."
+              />
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                @click="handleSubmit('formValidate')"
+              >保存</Button>
+            </FormItem>
+          </Form>
+        </Modal>
+      </div>
+      <div style="position: relative;clear:both">
+        <i-table
+          :columns="columns"
+          :data="data"
+        />
+        <Page
+          :total="100"
+          show-elevator
+          show-sizer
+          show-total
+          class="ban-trigger"
+        />
+      </div>
+      <addUserDialog
+        v-if="isAddShow"
+        :is-add-show="isAddShow"
+        @handCloseDialog="handClick"
+      />
     </div>
   </div>
 </template>
@@ -158,9 +190,11 @@
 <script>
 import translateGroup from '@/components/translateGroup/index.vue'
 import { getInputData } from '@/api/enterprise.js'
+import addUserDialog from '@/components/addUserDialog/index.vue'
 export default {
   components: {
-    translateGroup
+    translateGroup,
+    addUserDialog
   },
   data() {
     return {
@@ -205,22 +239,39 @@ export default {
           fixed: 'left',
           width: 100,
           render: (h, params) => {
-            return h('span', {
-              on: {
-                click: () => {
-                  window.open(`#/client-overview?id=${params.row.baseId}&from=invitelist`, '_blank')
+            return h(
+              'span',
+              {
+                on: {
+                  click: () => {
+                    window.open(
+                      `#/client-overview?id=${params.row.baseId}&from=invitelist`,
+                      '_blank'
+                    )
+                  }
+                },
+                style: {
+                  cursor: 'pointer'
                 }
               },
-              style: {
-                cursor: 'pointer'
-              }
-            }, params.row.name)
+              params.row.name
+            )
           }
         },
         { title: '所在机构', key: 'institution', width: 200 },
-        { title: '是否Alpha律所', key: 'isAlphaIns', width: 100, render: (h, params) => h('span', params.row.isAlphaIns ? '是' : '否') },
+        {
+          title: '是否Alpha律所',
+          key: 'isAlphaIns',
+          width: 100,
+          render: (h, params) => h('span', params.row.isAlphaIns ? '是' : '否')
+        },
         { title: '职务', key: 'position', width: 100 },
-        { title: '执业年限', key: 'lengthOfPractice', width: 100, sortable: 'custom' },
+        {
+          title: '执业年限',
+          key: 'lengthOfPractice',
+          width: 100,
+          sortable: 'custom'
+        },
         {
           title: '手机号',
           key: 'mobilePhone',
@@ -243,22 +294,39 @@ export default {
           title: '区域',
           width: 140,
           render: (h, params) => {
-            return h('span', `${params.row.province || ''} ${params.row.city || ''} ${params.row.area || ''}`)
+            return h(
+              'span',
+              `${params.row.province || ''} ${params.row.city || ''} ${params
+                .row.area || ''}`
+            )
           }
         },
-        { title: '邀请状态', key: 'partnerInviteStatus', align: 'center', minWidth: 140 },
-        { title: '邀请人', key: 'partnerInviter', align: 'center', minWidth: 73 },
+        {
+          title: '邀请状态',
+          key: 'partnerInviteStatus',
+          align: 'center',
+          minWidth: 140
+        },
+        {
+          title: '邀请人',
+          key: 'partnerInviter',
+          align: 'center',
+          minWidth: 73
+        },
         {
           title: '邀请记录',
           key: 'partnerInviteRecord',
           minWidth: 180,
           render: (h, params) => {
-            return h('p', {
-              style: {
-                maxHeight: '150px',
-                overflow: 'scroll'
-              }
-            })
+            return h(
+              'p',
+              {
+                style: {
+                  maxHeight: '150px',
+                  overflow: 'scroll'
+                }
+              },
+            )
           }
         },
         {
@@ -325,9 +393,24 @@ export default {
           }
         },
         { title: '标签', key: 'tags', width: 100 },
-        { title: '邀请级别', key: 'partnerIntentLevel', align: 'center', minWidth: 73 },
-        { title: '决策点', key: 'decisionPoint', align: 'center', minWidth: 73 },
-        { title: '橙子手机', key: 'partnerOrangePhone', align: 'center', minWidth: 73 },
+        {
+          title: '邀请级别',
+          key: 'partnerIntentLevel',
+          align: 'center',
+          minWidth: 73
+        },
+        {
+          title: '决策点',
+          key: 'decisionPoint',
+          align: 'center',
+          minWidth: 73
+        },
+        {
+          title: '橙子手机',
+          key: 'partnerOrangePhone',
+          align: 'center',
+          minWidth: 73
+        },
         { title: 'Alpha用户数', key: 'row', align: 'center', minWidth: 100 },
         {
           title: '出生日期',
@@ -350,8 +433,18 @@ export default {
           minWidth: 160,
           align: 'center'
         },
-        { title: '参加人数', key: 'partnerJoinActivityPersonNum', align: 'center', minWidth: 70 },
-        { title: '所在群', key: 'partnerChatGroup', align: 'center', minWidth: 70 },
+        {
+          title: '参加人数',
+          key: 'partnerJoinActivityPersonNum',
+          align: 'center',
+          minWidth: 70
+        },
+        {
+          title: '所在群',
+          key: 'partnerChatGroup',
+          align: 'center',
+          minWidth: 70
+        },
         { title: '备注', key: 'partnerRemark', align: 'center', minWidth: 70 },
         {
           title: '操作',
@@ -1274,7 +1367,8 @@ export default {
           wechatOnTheOrange: null,
           wechatOnThePhone: null
         }
-      ]
+      ],
+      isAddShow: false
     }
   },
   mounted() {
@@ -1289,6 +1383,12 @@ export default {
     })
   },
   methods: {
+    addUserDialog() {
+      this.isAddShow = true
+    },
+    handClick(flag) {
+      this.isAddShow = flag
+    },
     editorModel(column) {
       console.log(column)
       this.flag = true
@@ -1308,6 +1408,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.other-btn-group {
+    margin: 5px 0;
+    height: 60px;
+    line-height: 60px;
+    .el-button {
+        font-size: 12px;
+    }
+    .other-btn-left {
+        float: left;
+        margin-left: 25px;
+    }
+    .other-btn-left > .el-button {
+        background-color: #f7f7f7;
+    }
+    .other-btn-right {
+        float: right;
+        margin-right: 25px;
+    }
+}
 .tableData {
     width: 96%;
     height: auto;

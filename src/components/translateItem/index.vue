@@ -19,7 +19,7 @@
           clearable
           @on-change="change"
         >
-          <Option v-for="item in options" :key="item.key" :value="item.value" :label="item.label" />
+          <!-- <el-option v-for="item in options" :key="item.key" :value="item.value" :label="item.label" /> -->
         </el-select>
         <!-- BooleanSelect -->
         <el-select
@@ -47,25 +47,27 @@
           clearable
           @on-change="multiSelect"
         >
-          <el-option
+          <!-- <el-option
             v-for="item in options"
             :key="item.key"
             :value="item.value"
             :label="item.label"
-          />
+          /> -->
         </el-select>
         <!-- Range -->
         <div v-if="data.type === formTypes.range">
-          <Input
+          <el-input
             v-model="rangeValue.min"
-            style="width:94px;border: 1px solid #ccc;"
+            class="w100"
+            style="width:94px"
             :placeholder="data.minPlaceholder || '最小'"
             clearable
             @on-change="rangeChange"
           />-
-          <Input
+          <el-input
             v-model="rangeValue.max"
-            style="width:94px;border: 1px solid #ccc;"
+            class="w100"
+            style="width:94px"
             :placeholder="data.maxPlaceholder || '最大'"
             clearable
             @on-change="rangeChange"
@@ -87,7 +89,7 @@
 </template>
 
 <script>
-// import {getInputData} from '@/api/enterprise.js'
+import { getInputData } from '@/api/enterprise.js'
 const FORM_TYPES = {
   input: 'input',
   range: 'range',
@@ -118,6 +120,11 @@ export default {
       singleDateValue: '',
       optionsByAsync: []
     }
+  },
+  mounted() {
+    getInputData().then(res => {
+      console.log(res)
+    })
   },
   methods: {
     emitChange(value) {
@@ -157,15 +164,13 @@ export default {
       this.emitChange(value)
     }
   }
-  // mounted() {
-  //   // getInputData().then(res=>{
-  //   //   // console.log(res)
-  //   // })
-  // },
 }
 </script>
 
 <style lang="scss">
+.w100>input{
+  width: 94px!important;
+}
 .translate-wrapper {
   display: inline-block;
   width: 25%;

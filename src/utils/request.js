@@ -33,22 +33,32 @@ service.interceptors.request.use(
     return Promise.reject(error)
   }
 )
-
+// service.interceptors.response.use(
+//   response => {
+//     return response
+//   }
+// )
 // response interceptor
 service.interceptors.response.use(
   /**
+   * 如果您想要获取诸如头或状态之类的http信息
    * If you want to get http information such as headers or status
+   * 请返回response=>response
    * Please return  response => response
    */
 
   /**
+   * 通过自定义代码确定请求状态
    * Determine the request status by custom code
+   * 这里只是一个例子
    * Here is just an example
+   * 您还可以通过http状态代码判断状态
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    console.log(response)
     const res = response.data
-
+    // return res
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
       Message({
