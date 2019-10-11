@@ -157,6 +157,7 @@
 
 <script>
 import translateGroup from '@/components/translateGroup/index.vue'
+import { getInputData } from '@/api/enterprise.js'
 export default {
   components: {
     translateGroup
@@ -1275,6 +1276,17 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    getInputData({
+      pageNo: 1,
+      pageSize: 10,
+      inviter: '01CEB4E16D2411E6A5C200163E0020D1'
+    }).then(res => {
+      console.log(res.data)
+    }).catch(error => {
+      console.log(error)
+    })
   },
   methods: {
     editorModel(column) {

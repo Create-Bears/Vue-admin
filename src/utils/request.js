@@ -7,7 +7,11 @@ import { getToken } from '@/utils/auth'
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000, // request timeout
+  headers: {
+    token:
+      'eyJhbGciOiJIUzI1NiJ9.eyJvZmZpY2VfaWQiOiI0ZDc5MmUzMTZhMDUxMWU2YWE3NjAwMTYzZTE2MmFkZCIsImRldmljZVR5cGUiOiJ3ZWIiLCJvZmZpY2VfbmFtZSI6ImlDb3VydCIsInVzZXJfdHlwZSI6IkEiLCJ1c2VyX2lkIjoiMDFDRUI0RTE2RDI0MTFFNkE1QzIwMDE2M0UwMDIwRDEiLCJsb2dpblR5cGUiOiIyIiwidXNlcl9uYW1lIjoi546L5YKoMSIsImlzcyI6ImlMYXcuY29tIiwiZXhwIjoxNTczMzUyMDcwNDA5LCJpYXQiOjE1NzA3NjAwNzA0MDksIm9mZmljZVR5cGUiOiJpbnRlZ3JhdGlvbiJ9.Hk7G93RZG4axRoJ5_uc8U1M6W9tVd6R9awxSCEvaKTE'
+  }
 })
 
 // request interceptor
